@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <meta charset='UTF-8'/>
+  <meta content='width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5' name='viewport'/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+  <script src="https://kit.fontawesome.com/4f3ce16e3e.js" crossorigin="anonymous"></script>
+  
+  <head>
+    <title>Will You Be My Rooh! 😍</title>
+  </head>
+  
+  <style>
+    :root {
+      --warna-bg: rgba(0, 0, 0, .5);
+      --warna-teks: white;
+      --warna-bingkai: #fff;
+    }
+    body{background-color:#101010; font-family: 'Ubuntu', sans-serif; padding: 0; margin: 0; user-select: none; overflow: hidden; height: 100vh; width: 100vw; display: flex; align-items: center; justify-content: center;} 
+    
+    body::before{
+        content:"\00A9 _0shrvni5_";
+        color:white; opacity:.4; font-size:14px; position:fixed; bottom:15px; left:15px; z-index:100;
+    }
+
+    #bodyblur{position:fixed; top:0; left:0; right:0; bottom:0; z-index:-1;} 
+    #beneranblur {position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(2px);}
+
+    #Content{position:relative; width:100%; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10;}
+    
+    #suratin{display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all .3s ease;}
+    #suratin img{background: none; width: 160px; height: auto; object-fit: contain;}
+    
+    #fotoakhir{display:none; width:180px; height:180px; border-radius:20px; border:3px solid white; margin-bottom: 20px; transition: all 1s ease; opacity: 0; transform: scale(0.1); object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.5);}
+    
+    blockquote{display:none; width:90%; max-width:400px; color:var(--warna-teks); text-align:center; margin: 0;}
+    #kalimat{font-size: 22px; font-weight: 700; margin-bottom: 10px; min-height: 30px;}
+    #kalimatb{font-size: 18px; margin-bottom: 5px; opacity: 0.9;}
+    #kalimatc{font-family: 'Dancing Script', cursive; font-size: 32px; color: #ffeb3b; min-height: 45px;}
+
+    #Tombol{display: none; margin-top: 30px; gap: 20px; z-index: 999; opacity: 0; transition: opacity 0.5s ease;}
+    #Tombol a{cursor:pointer; padding: 12px 30px; border: 2px solid var(--warna-bingkai); border-radius: 10px; background: var(--warna-bg); color: white; font-size: 16px; font-weight: 700; text-decoration: none;}
+
+    .fa-heart {opacity:.6; color:#ff4d4d; font-size: 25px; position: absolute; animation: heartMove linear 1; top: -10vh; z-index: 1;}
+    @keyframes heartMove {0%{transform: translateY(-10vh) rotate(0deg);} 100%{transform: translateY(110vh) rotate(360deg);}}
+  </style>
+  
+  <body>
+    <audio id="linkLagu" src="https://files.ceenai.com/jp-saxe-if-the-world-was-ending-ft-julia-michaels-official-video.mp3" preload="auto" loop></audio>
+
+    <div id="links" style="display:none;">
+        <img id="envelopeIcon" src="https://media.giphy.com/media/tUYji4JEElexgut980/giphy.gif">
+        
+        <img id="s1" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzF0aGZlcWhjMHAxZ28wbTQ4cHVnMGIwdmIwMDNvcnZhMHd0amVwYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Ie4CIIvQS0bk3zwZlM/giphy.gif">
+        <img id="s2" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWY1NjYydThhbDBkdmRjcXQ3aGlpOGJtMms4ZTd3a2dscHdsMDNvZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Jt5GkWXoLswrgP2Aws/giphy.gif">
+        <img id="s3" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnRtbmtpZmxzajZ2cml2cXVrZDNoc2M2MmVsYzhrM21jeHdyeW00ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SYo1DFS8NLhhqzzjMU/giphy.gif">
+        <img id="s4" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjN1bGVtNGhpeHc3N2s0bXY1MGt1bWIzdWFrdmIzenc5Nm1iOTRibyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IzXiddo2twMmdmU8Lv/giphy.gif">
+        <img id="sf" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YXZkZmVkYWIzaDN0cWQwNHJhaXprbjFnMDdud2xuNXF0em5vemRwMSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/KmxmoHUGPDjfQXqGgv/giphy.gif">
+    </div>
+
+    <div id="bodyblur">
+      <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1000&q=80" id="wallpaper" width="100%" height="100%"/>
+      <div id="beneranblur"></div>
+    </div>
+
+    <div id='Content'>
+      <div id="suratin" onClick="memulai();">
+        <img id="mainIcon" src=""/>
+        <p id="ket" style="margin-top: 10px; color: white; font-weight: bold; text-shadow: 2px 2px 4px black;">Click the Heart ❤️</p>
+      </div>
+      
+      <img src="" id="fotoakhir"/>
+      
+      <blockquote id='bq'>
+        <p id="kalimat"></p>
+        <p id="kalimatb"></p>
+        <p id="kalimatc"></p>
+      </blockquote>
+    
+      <div id="Tombol">
+        <a id="By" onClick="multifungsi()">Yes</a>
+        <a id="Bn" onMouseOver="tolak()" onClick="tolak()">No</a>
+      </div>
+    </div>
+
+  <script>
+    document.getElementById('mainIcon').src = document.getElementById('envelopeIcon').src;
+    var audio = document.getElementById("linkLagu");
+
+    var ftom=0;
+    const swalst = Swal.mixin({timer: 2500, allowOutsideClick: false, showConfirmButton: false, timerProgressBar: true});
+    const swals = Swal.mixin({allowOutsideClick: false, cancelButtonColor: '#FF0040'});
+    var today = new Date();
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    today = today.getDate() + ' ' + monthNames[today.getMonth()] + ' ' + today.getFullYear();
+
+    function memulai(){
+        audio.play(); 
+        document.getElementById("suratin").style.display = "none";
+        pesan();
+    }
+
+    async function pesan(){
+      await swalst.fire({title: 'Hey You! ❤️', imageUrl: document.getElementById('s1').src});
+      await swalst.fire({title: 'How are you?', imageUrl: document.getElementById('s2').src});
+      await swalst.fire({title: 'Did you know?', imageUrl: document.getElementById('s3').src});
+      await swalst.fire({title: 'I\'ve liked you for a long time 👉🏻👈🏻', imageUrl: document.getElementById('s4').src});
+      showFinalPart();
+    }
+
+    function showFinalPart() {
+        document.getElementById("fotoakhir").src = document.getElementById("sf").src;
+        document.getElementById("fotoakhir").style.display = "block";
+        document.getElementById("bq").style.display = "block";
+        setTimeout(() => {
+            document.getElementById("fotoakhir").style.opacity = "1";
+            document.getElementById("fotoakhir").style.transform = "scale(1)";
+            typeWriter("Will you be my Rooh? 🤭❤️", "kalimat", 80, () => {
+                document.getElementById("Tombol").style.display = "flex";
+                setTimeout(() => { document.getElementById("Tombol").style.opacity = "1"; ftom = 1; }, 100);
+            });
+        }, 100);
+    }
+
+    function typeWriter(text, elementId, speed, callback) {
+      let charIndex = 0;
+      const element = document.getElementById(elementId);
+      function type() {
+        if (charIndex < text.length) {
+          element.innerHTML += text.charAt(charIndex);
+          charIndex++;
+          setTimeout(type, speed);
+        } else if (callback) {
+          callback();
+        }
+      }
+      type();
+    }
+
+    function multifungsi(){
+        if(ftom==1) jawab();
+        if(ftom==5) menuju();
+    }
+
+    function jawab(){
+        ftom = 0;
+        document.getElementById("Tombol").style.opacity = "0";
+        setInterval(createHeart, 200);
+        
+        setTimeout(() => {
+            document.getElementById("Tombol").style.display = "none";
+            document.getElementById("kalimat").innerHTML = "Yayyy! 😍 hui n bhurkundewali baat";
+            document.getElementById("kalimatb").innerHTML = "now you are official Rooh from : " + today;
+            
+            typeWriter("I love youuuu ❤️ so much bhana", "kalimatc", 100, () => {
+                setTimeout(() => {
+                    document.getElementById("By").innerHTML = "Send Message";
+                    document.getElementById("Bn").style.display = "none";
+                    document.getElementById("Tombol").style.display = "flex";
+                    document.getElementById("Tombol").style.opacity = "1";
+                    ftom = 5;
+                }, 800);
+            });
+        }, 500);
+    }
+
+    async function menuju(){
+        var myNumber = "+918976478501"; // <-- UPDATE YOUR NUMBER
+        var msg = "I want to be your Rooh! 😚❤️ bhai";
+        window.location.href = "https://wa.me/" + myNumber + "?text=" + encodeURIComponent(msg);
+    }
+
+    function tolak(){
+        var bn = document.getElementById("Bn");
+        bn.style.position = "fixed";
+        bn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+        bn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "fas fa-heart";
+      heart.style.left = (Math.random() * 95) + "vw";
+      heart.style.animationDuration = (Math.random() * 3) + 2 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+  </script>
+</body>
+</html>
